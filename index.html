@@ -1,0 +1,96 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Votes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+  
+  
+    
+    <link href="images/logo.jpg" rel="shortcut icon" type="image/png">
+</head>
+<body   style="background-image: url('images/bg.jpg');">
+    
+
+    <br>
+    <div class="container">
+        <h1>Vote  </h1>
+        <h5 style="color: white;" >Vote for your best JavaScript  Framework</h5>
+<br>
+
+    <ul class="list-group">
+        <li v-for="candidate in candidates" class="list-group-item">{{candidate.name}} 
+
+            <div class="text-center">
+            <button class="btn btn-success   " @click.delete="candidate.votes++">Vote</button>
+        </div>
+           <p align="right"> {{candidate.votes}}</p>
+        </li>
+    </ul>
+    <div class="container ">
+       
+    
+        <br>
+
+        <!-- The delete button was deactivated and commented out. To activate it. Remove the comments below -->
+
+        <!-- <div  class="text-right">
+        <button class=" btn-danger btn btn-large " 
+        @keyup.delete="clear" v-on:click="">Delete</button>
+    </div> -->
+
+
+
+    </div>
+
+    
+    <h2 style="text-align: center; color: white;">  {{winner.name}} is Leading</h2>
+</div>
+
+
+
+
+<div class="" style="color: black; text-align: center;">
+    © <script>document.write(new Date().getFullYear())</script>, Made with <i class="fa fa-heart" style="color: red;"></i> <a href="http://twitter.com/marizu_makozi" style="color: black">Makozi</a>
+  </div>
+
+</body  >
+    
+</style>
+<script src="js/vue.min.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '.container',
+        data: {
+            candidates: [
+                {name: "Vue.Js", votes: 140},
+                {name: "Angular.Js", votes: 135},
+                {name: "React.Js", votes: 145},
+               
+            ]
+        },
+        computed: {
+           winner: function () {
+                //first we sort the array descending
+                var candidatesSorted = this.candidates.sort(function (a, b) {
+                    return b.votes - a.votes;
+                });
+                //the winner will be the first item
+                return candidatesSorted[0];
+            }
+        },
+        methods: {
+            clear: function () {
+                
+                this.candidates = this.candidates.map(function (candidate) {
+                    candidate.votes = 0;
+                    return candidate;
+                })
+            }
+        }
+    })
+</script>
+</html>
